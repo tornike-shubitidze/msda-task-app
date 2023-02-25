@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './components/dialog/dialog.component';
 
-export interface PeriodicElement {
+export interface Car {
   id: number;
   name: string;
+  model: string;
   year: number;
   description: string;
-  model: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const CARS_DATA: Car[] = [
   {
     id: 1,
     name: 'Hydrogen',
@@ -95,5 +97,14 @@ export class AppComponent {
     'description',
     'Edit or Delete',
   ];
-  dataSource = ELEMENT_DATA;
+  dataSource = CARS_DATA;
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    this.dialog.open(DialogComponent, {
+      // width: '300px',
+      // data: { ...dataToPass },
+    });
+  }
 }
