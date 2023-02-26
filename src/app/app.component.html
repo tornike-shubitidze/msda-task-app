@@ -1,5 +1,5 @@
 <div class="app-layout">
-  <button mat-raised-button class="add-car-btn" color="accent" (click)="openDialog()"> Add Car</button>
+  <app-button class="add-car-btn" color="accent" text="ADD CAR" (click)="openDialog()"></app-button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -26,9 +26,8 @@
     <ng-container matColumnDef="Edit or Delete">
       <th mat-header-cell *matHeaderCellDef> Edit or Delete </th>
       <td mat-cell *matCellDef="let car">
-        <button mat-raised-button color="primary" (click)="openDialog()"> Edit</button> &nbsp;&nbsp;&nbsp; <button
-          mat-raised-button color="warn">
-          Delete</button>
+        <app-button color="primary" text="EDIT" (click)="openDialog()"></app-button> &nbsp;&nbsp;&nbsp;
+        <app-button color="warn" text="DELETE" (click)="onDeleteCar()"></app-button>
       </td>
     </ng-container>
 

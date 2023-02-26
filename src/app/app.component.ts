@@ -107,4 +107,13 @@ export class AppComponent {
       // data: { ...dataToPass },
     });
   }
+
+  onDeleteCar() {
+    var deleteCar = confirm('do you realy want to delete car?');
+    console.log(
+      deleteCar
+        ? 'Your selected vehicle has been deleted successfully ✅'
+        : 'You canceled ❌'
+    );
+  }
 }

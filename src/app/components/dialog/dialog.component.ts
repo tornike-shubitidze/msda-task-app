@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog',
@@ -6,7 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent {
+  constructor(public dialog: MatDialog) {}
+
   addCar() {
     console.log('car added!');
+    this.dialog.closeAll();
   }
 }

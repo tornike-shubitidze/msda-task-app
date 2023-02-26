@@ -1,4 +1,4 @@
-<form class="form">
+<div class="form">
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Name</mat-label>
         <input matInput>
@@ -19,5 +19,6 @@
         <mat-label>Textarea</mat-label>
         <textarea matInput></textarea>
     </mat-form-field>
-    <button mat-raised-button class="add-car-btn" color="primary" (click)="addCar()"> Add Car</button>
-</form>
+
+    <app-button class="dialog-add-car-btn" color="primary" text="ADD CAR" (click)="addCar()"></app-button>
+</div>
