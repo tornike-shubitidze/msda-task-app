@@ -1,25 +1,27 @@
 <form class="form">
     <mat-form-field appearance="fill" class="form-field-for-id">
         <mat-label>ID</mat-label>
-        <input matInput name="id" [(ngModel)]="id">
+        <input matInput name="id" [(ngModel)]="selectedCar.id">
     </mat-form-field>
+
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Name</mat-label>
-        <input matInput name="name" [(ngModel)]="name">
+        <input matInput name="name" [(ngModel)]="selectedCar.name">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Model</mat-label>
-        <input matInput name="model" [(ngModel)]="model">
+        <input matInput name="model" [(ngModel)]="selectedCar.model">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Year</mat-label>
-        <input matInput name="year" [(ngModel)]="year">
+        <input matInput name="year" [(ngModel)]="selectedCar.year">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Description</mat-label>
-        <textarea matInput name="description" [(ngModel)]="description"></textarea>
+        <textarea matInput name="description" [(ngModel)]="selectedCar.description"></textarea>
     </mat-form-field>
 
-    <app-button class="dialog-add-car-btn" color="primary" text="SAVE CAR" (click)="onSaveCar()"></app-button>
+    <app-button class="dialog-add-car-btn" color="primary" text={{this.data.btnText}}
+        (click)="onSaveCar()"></app-button>
     <app-button color="primary" text="CENCEL" (click)="onCencelClick()"></app-button>
 </form>

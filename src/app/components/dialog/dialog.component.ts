@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -13,10 +13,21 @@ export class DialogComponent {
   year: string | undefined;
   description: string | undefined;
 
-  constructor(public dialog: MatDialog) {}
-  id = uuidv4();
+  constructor(
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
-  onSaveCar() {}
+  id = uuidv4();
+  btnText: string = this.data.btnText;
+
+  selectedCar = {
+    id: this.data.car.id || this.id,
+    name: this.data.car.name || '',
+    model: this.data.car.model || '',
+    year: this.data.car.year || '',
+    description: this.data.car.description || '',
+  };
 
   addCar() {
     var newCar = {
@@ -28,6 +39,10 @@ export class DialogComponent {
     };
     console.log('newCar: ', newCar);
     this.dialog.closeAll();
+  }
+
+  onSaveCar() {
+    console.log(this.btnText);
   }
 
   onCencelClick() {
