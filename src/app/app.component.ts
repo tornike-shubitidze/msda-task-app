@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
 
 export interface Car {
-  id: number;
+  id: string;
   name: string;
   model: string;
   year: number;
@@ -12,70 +12,70 @@ export interface Car {
 
 const CARS_DATA: Car[] = [
   {
-    id: 1,
+    id: '1',
     name: 'Hydrogen',
     year: 1079,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 2,
+    id: '2',
     name: 'Helium',
     year: 4026,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 3,
+    id: '3',
     name: 'Lithium',
     year: 6941,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 4,
+    id: '4',
     name: 'Beryllium',
     year: 9122,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 5,
+    id: '5',
     name: 'Boron',
     year: 1811,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 6,
+    id: '6',
     name: 'Carbon',
     year: 1207,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 7,
+    id: '7',
     name: 'Nitrogen',
     year: 1467,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 8,
+    id: '8',
     name: 'Oxygen',
     year: 1994,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 9,
+    id: '9',
     name: 'Fluorine',
     year: 1984,
     description: 'car is in a good condition...',
     model: 'M5',
   },
   {
-    id: 10,
+    id: '10',
     name: 'Neon',
     year: 2797,
     description: 'car is in a good condition...',
@@ -91,6 +91,7 @@ const CARS_DATA: Car[] = [
 export class AppComponent {
   title = 'msda-task-app';
   displayedColumns: string[] = [
+    'id',
     'Name',
     'Model',
     'Year',
@@ -104,15 +105,15 @@ export class AppComponent {
   openDialog() {
     this.dialog.open(DialogComponent, {
       // width: '300px',
-      // data: { ...dataToPass },
+      // data: someData,
     });
   }
 
-  onDeleteCar() {
-    var deleteCar = confirm('do you realy want to delete car?');
+  onDeleteCar(id: string) {
+    var deleteCar = confirm(`do you realy want to delete car by id:${id}?`);
     console.log(
       deleteCar
-        ? 'Your selected vehicle has been deleted successfully ✅'
+        ? `Your selected vehicle by id:${id} has been deleted successfully ✅`
         : 'You canceled ❌'
     );
   }

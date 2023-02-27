@@ -1,24 +1,25 @@
-<div class="form">
+<form class="form">
+    <mat-form-field appearance="fill" class="form-field-for-id">
+        <mat-label>ID</mat-label>
+        <input matInput name="id" [(ngModel)]="id">
+    </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Name</mat-label>
-        <input matInput>
+        <input matInput name="name" [(ngModel)]="name">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Model</mat-label>
-        <input matInput>
+        <input matInput name="model" [(ngModel)]="model">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Year</mat-label>
-        <input matInput>
+        <input matInput name="year" [(ngModel)]="year">
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Description</mat-label>
-        <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Textarea</mat-label>
-        <textarea matInput></textarea>
+        <textarea matInput name="description" [(ngModel)]="description"></textarea>
     </mat-form-field>
 
-    <app-button class="dialog-add-car-btn" color="primary" text="ADD CAR" (click)="addCar()"></app-button>
-</div>
+    <app-button class="dialog-add-car-btn" color="primary" text="SAVE CAR" (click)="onSaveCar()"></app-button>
+    <app-button color="primary" text="CENCEL" (click)="onCencelClick()"></app-button>
+</form>
