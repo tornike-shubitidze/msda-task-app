@@ -16,7 +16,8 @@
         <textarea matInput name="description" [(ngModel)]="selectedCar.description"></textarea>
     </mat-form-field>
 
-    <app-button class="dialog-add-car-btn" color="primary" text={{this.data.btnText}}
-        (click)="onSaveCar()"></app-button>
-    <app-button color="primary" text="CENCEL" (click)="onCencelClick()"></app-button>
+    <div class="dialog-actions">
+        <app-button color="basic" text="CENCEL" (click)="onCencelClick()"></app-button>
+        <app-button color="primary" text={{this.data.btnText}} (click)="onSaveCar()"></app-button>
+    </div>
 </form>

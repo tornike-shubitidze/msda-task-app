@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 
 export interface Car {
@@ -97,15 +98,33 @@ export class AppComponent {
     'Edit or Delete',
   ];
 
-  dataSource = CARS_DATA;
+  tableData: Car[] = CARS_DATA;
+
+  dataSource = this.tableData;
 
   constructor(public dialog: MatDialog) {}
 
+  applyFilter(event: any, columnName: string) {
+    console.log(columnName);
+
+    this.dataSource = this.tableData.filter((car) =>
+      car[columnName as keyof Car].includes(
+        event.target.value.trim().toLowerCase()
+      )
+    );
+
+    console.log(event.target.value);
+    console.log(this.dataSource);
+  }
+
   openDialog(textValue: string, value?: Car) {
-    this.dialog.open(DialogComponent, {
-      // width: '300px',
-      data: { car: value, btnText: textValue },
-    });
+    this.dialog.open(
+      textValue !== 'DELETE' ? DialogComponent : DeleteDialogComponent,
+      {
+        // width: '300px',
+        data: { car: value, btnText: textValue },
+      }
+    );
   }
 
   onDeleteCar(id: string) {

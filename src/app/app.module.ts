@@ -12,9 +12,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ButtonComponent } from './components/button/button.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, ButtonComponent],
+  declarations: [AppComponent, DialogComponent, ButtonComponent, DeleteDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
