@@ -19,14 +19,14 @@ export class DialogComponent {
   ) {}
 
   id = uuidv4();
-  btnText: string = this.data.btnText;
+  isEdit: boolean = this.data.btnText === 'EDIT';
 
   selectedCar = {
-    id: this.data.car.id || this.id,
-    name: this.data.car.name || '',
-    model: this.data.car.model || '',
-    year: this.data.car.year || '',
-    description: this.data.car.description || '',
+    id: this.isEdit ? this.data.car.id : this.id,
+    name: this.isEdit ? this.data.car.name : '',
+    model: this.isEdit ? this.data.car.model : '',
+    year: this.isEdit ? this.data.car.year : '',
+    description: this.isEdit ? this.data.car.description : '',
   };
 
   addCar() {
@@ -42,7 +42,7 @@ export class DialogComponent {
   }
 
   onSaveCar() {
-    console.log(this.btnText);
+    console.log(' selectedCar : ', this.selectedCar);
   }
 
   onCencelClick() {

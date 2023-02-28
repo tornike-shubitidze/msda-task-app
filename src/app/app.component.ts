@@ -100,26 +100,14 @@ export class AppComponent {
 
   dataSource = CARS_DATA;
 
-  newCar: Car = {
-    id: '',
-    name: '',
-    model: '',
-    year: '',
-    description: '',
-  };
-
   constructor(public dialog: MatDialog) {}
 
-  openDialog(textValue: string, value: Car) {
+  openDialog(textValue: string, value?: Car) {
     this.dialog.open(DialogComponent, {
       // width: '300px',
       data: { car: value, btnText: textValue },
     });
   }
-
-  // openDialogOnAddBtn() {
-  //   this.dialog.open(DialogComponent, {});
-  // }
 
   onDeleteCar(id: string) {
     var deleteCar = confirm(`do you realy want to delete car by id:${id}?`);
