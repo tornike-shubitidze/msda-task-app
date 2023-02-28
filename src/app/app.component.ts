@@ -90,7 +90,6 @@ const CARS_DATA: Car[] = [
 })
 export class AppComponent {
   displayedColumns: string[] = [
-    'id',
     'Name',
     'Model',
     'Year',

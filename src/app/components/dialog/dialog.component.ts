@@ -19,7 +19,7 @@ export class DialogComponent {
   ) {}
 
   id = uuidv4();
-  isEdit: boolean = this.data.btnText === 'EDIT';
+  isEdit: boolean = this.data.btnText === 'SAVE CAR';
 
   selectedCar = {
     id: this.isEdit ? this.data.car.id : this.id,

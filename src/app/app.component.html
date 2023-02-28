@@ -2,13 +2,10 @@
   <app-button class="add-car-btn" color="accent" text="ADD CAR" (click)="openDialog('ADD CAR')"></app-button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef hidden> id </th>
-      <td mat-cell *matCellDef="let car" hidden> {{car.id}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="Name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <th mat-header-cell *matHeaderCellDef> Name
+        <input matInput placeholder="Search by Name" #input>
+      </th>
       <td mat-cell *matCellDef="let car"> {{car.name}} </td>
     </ng-container>
 
