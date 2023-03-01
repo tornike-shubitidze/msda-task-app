@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Car } from 'src/app/interfaces';
+import { PropsData } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -7,5 +9,18 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./delete-dialog.component.css'],
 })
 export class DeleteDialogComponent {
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: PropsData
+  ) {}
+
+  onNoClick() {
+    this.dialog.closeAll();
+  }
+
+  onDeleteClick(car: Car) {
+    console.log(car);
+
+    this.dialog.closeAll();
+  }
 }

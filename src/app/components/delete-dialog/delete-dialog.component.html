@@ -4,7 +4,7 @@
         Do you really want to delete this car?
     </h3>
     <div class="dialog-actions">
-        <app-button color="basic" text="No"></app-button>
-        <app-button color="warn" text="Yes"></app-button>
+        <app-button color="basic" text="No" (click)="onNoClick()"></app-button>
+        <app-button color="warn" text="Yes" (click)="onDeleteClick(this.data.car)"></app-button>
     </div>
 </div>

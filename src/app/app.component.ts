@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-
-export interface Car {
-  id: string;
-  name: string;
-  model: string;
-  year: string;
-  description: string;
-}
+import { Car } from './interfaces';
 
 const CARS_DATA: Car[] = [
   {
@@ -119,7 +112,7 @@ export class AppComponent {
 
   openDialog(textValue: string, value?: Car) {
     this.dialog.open(
-      textValue !== 'DELETE' ? DialogComponent : DeleteDialogComponent,
+      textValue !== 'DELETE' ? DialogComponent : (DeleteDialogComponent as any),
       {
         // width: '300px',
         data: { car: value, btnText: textValue },

@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid';
+import { PropsData } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-dialog',
@@ -15,7 +16,7 @@ export class DialogComponent {
 
   constructor(
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: PropsData
   ) {}
 
   id = uuidv4();
