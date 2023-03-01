@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { v4 as uuidv4 } from 'uuid';
-import { PropsData } from 'src/app/interfaces';
+import { PropsData } from '../../Interfaces';
 
 @Component({
   selector: 'app-dialog',
@@ -13,6 +14,23 @@ export class DialogComponent {
   model: string | undefined;
   year: string | undefined;
   description: string | undefined;
+
+  formName = new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[A-Za-z]+$'),
+  ]);
+
+  formModel = new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[a-zA-Z0-9_.-]*$'),
+  ]);
+
+  formYear = new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[0-9]+$'),
+    Validators.minLength(4),
+    Validators.maxLength(4),
+  ]);
 
   constructor(
     public dialog: MatDialog,
@@ -43,7 +61,9 @@ export class DialogComponent {
   }
 
   onSaveCar() {
-    console.log(' selectedCar : ', this.selectedCar);
+    if (this.formName.valid && this.formYear.valid && this.formModel.valid) {
+      return alert('form is valid');
+    } else return alert('form is not valid');
   }
 
   onCencelClick() {

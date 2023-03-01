@@ -1,15 +1,24 @@
 <form class="form">
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Name</mat-label>
-        <input matInput name="name" [(ngModel)]="selectedCar.name">
+        <input matInput name="name" [formControl]="formName" [(ngModel)]="selectedCar.name">
+        <mat-error *ngIf="formName.invalid" class="form-error">
+            Name is required! Please enter <strong>letters</strong> only 🙂
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Model</mat-label>
-        <input matInput name="model" [(ngModel)]="selectedCar.model">
+        <input matInput name="model" [formControl]="formModel" [(ngModel)]="selectedCar.model">
+        <mat-error *ngIf="formModel.invalid" class="form-error">
+            Model is required! Please enter <strong>Numbers or Letters</strong> only 🙂
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Year</mat-label>
-        <input matInput name="year" [(ngModel)]="selectedCar.year">
+        <input matInput name="year" [formControl]="formYear" [(ngModel)]="selectedCar.year">
+        <mat-error *ngIf="formYear.invalid" class="form-error">
+            Year is required! Please enter four digit <strong>Numbers</strong> only 🙂
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>Description</mat-label>

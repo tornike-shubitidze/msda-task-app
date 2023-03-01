@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { Car } from './interfaces';
+import { Car } from '../app/Interfaces';
 
 const CARS_DATA: Car[] = [
   {
