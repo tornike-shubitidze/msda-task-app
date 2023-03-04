@@ -32,19 +32,31 @@ export class AppComponent {
     });
   }
 
-  applyFilter(event: KeyboardEvent, columnName: string) {
+  applyFilter(event: KeyboardEvent) {
+    var filterColumnName = (event.target as HTMLInputElement).getAttribute(
+      'name'
+    );
+    var filterInputValue = (event.target as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+
     this.dataSource = this.CARS_DATA.filter((car: Car) =>
-      car[columnName as keyof Car]
+      car[filterColumnName as keyof Car]
         .toLowerCase()
-        .includes((event.target as HTMLInputElement).value.trim().toLowerCase())
+        .includes(filterInputValue)
     );
   }
 
-  openDialog(textValue: string, value?: Car) {
+  openDialog(event: Event, value?: Car) {
+    var btnTextValue = (event.target as HTMLInputElement).innerText;
+    if (btnTextValue == '') return;
+
     this.dialog.open(
-      textValue !== 'DELETE' ? DialogComponent : (DeleteDialogComponent as any),
+      btnTextValue !== 'DELETE'
+        ? DialogComponent
+        : (DeleteDialogComponent as any),
       {
-        data: { car: value, btnText: textValue },
+        data: { car: value, btnText: btnTextValue },
       }
     );
   }

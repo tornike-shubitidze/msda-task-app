@@ -38,8 +38,8 @@ export class DialogComponent {
   ) {}
 
   id = uuidv4();
-  isEdit: boolean = this.data.btnText === 'SAVE CAR';
-  // isEdit: boolean = this.data.car !== undefined;
+  // isEdit: boolean = this.data.btnText === 'SAVE CAR';
+  isEdit: boolean = this.data.car !== undefined;
 
   selectedCar = {
     // id: this.data.car?.id || '',

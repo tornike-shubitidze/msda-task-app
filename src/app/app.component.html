@@ -1,31 +1,32 @@
 <div class="app-layout">
-  <app-button class='add-car-btn' color="accent" text="ADD CAR" (click)="openDialog('ADD CAR')"></app-button>
+  <app-button class='add-car-btn' color="accent" text="ADD CAR" (click)="openDialog($event)"></app-button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="Name">
       <th mat-header-cell *matHeaderCellDef> Name
-        <input matInput placeholder="Search by Name" class="search" (keyup)="applyFilter($event, 'name')">
+        <input matInput placeholder="Search by Name" name="name" class="search" (keyup)="applyFilter($event)">
       </th>
       <td mat-cell *matCellDef="let car"> {{car.name.toUpperCase()}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Model">
       <th mat-header-cell *matHeaderCellDef> Model
-        <input matInput placeholder="Search by Model" class="search" (keyup)="applyFilter($event, 'model')">
+        <input matInput placeholder="Search by Model" name="model" class="search" (keyup)="applyFilter($event)">
       </th>
       <td mat-cell *matCellDef="let car"> {{car.model.toUpperCase()}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Year">
       <th mat-header-cell *matHeaderCellDef> Year
-        <input matInput placeholder="Search by Year" class="search" (keyup)="applyFilter($event, 'year')">
+        <input matInput placeholder="Search by Year" name="year" class="search" (keyup)="applyFilter($event)">
       </th>
       <td mat-cell *matCellDef="let car"> {{car.year}} </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Description
-        <input matInput placeholder="Search by Description" class="search" (keyup)="applyFilter($event, 'description')">
+        <input matInput placeholder="Search by Description" name="description" class="search"
+          (keyup)="applyFilter($event)">
       </th>
       <td mat-cell *matCellDef="let car" class="description"> {{car.description.toUpperCase()}} </td>
     </ng-container>
@@ -33,8 +34,8 @@
     <ng-container matColumnDef="Edit or Delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let car">
-        <app-button color="primary" text="EDIT" (click)="openDialog('SAVE CAR',car)"></app-button> &nbsp;&nbsp;&nbsp;
-        <app-button color="warn" text="DELETE" (click)="openDialog('DELETE',car)"></app-button>
+        <app-button color="primary" text="EDIT" (click)="openDialog($event,car)"></app-button> &nbsp;&nbsp;&nbsp;
+        <app-button color="warn" text="DELETE" (click)="openDialog($event,car)"></app-button>
       </td>
     </ng-container>
 
