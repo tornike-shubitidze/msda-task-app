@@ -16,11 +16,11 @@ export class AppComponent {
   dataSource: Car[] = [];
 
   displayedColumns: string[] = [
-    'Name',
-    'Model',
-    'Year',
-    'description',
-    'Edit or Delete',
+    'NAME',
+    'MODEL',
+    'YEAR',
+    'DESCRIPTION',
+    'EDIT/DELETE',
   ];
 
   constructor(private carsService: CarService, public dialog: MatDialog) {}
@@ -36,11 +36,12 @@ export class AppComponent {
     var filterColumnName = (event.target as HTMLInputElement).getAttribute(
       'name'
     );
+
     var filterInputValue = (event.target as HTMLInputElement).value
       .trim()
       .toLowerCase();
 
-    this.dataSource = this.CARS_DATA.filter((car: Car) =>
+    this.dataSource = this.CARS_DATA.filter((car: any) =>
       car[filterColumnName as keyof Car]
         .toLowerCase()
         .includes(filterInputValue)
@@ -56,9 +57,19 @@ export class AppComponent {
         ? DialogComponent
         : (DeleteDialogComponent as any),
       {
-        data: { car: value, btnText: btnTextValue },
+        data: {
+          car: value,
+          btnText: btnTextValue !== 'EDIT' ? btnTextValue : 'EDIT CAR',
+        },
       }
     );
+
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.carsService.getCars().subscribe((cars) => {
+        this.CARS_DATA = cars;
+        this.dataSource = this.CARS_DATA;
+      });
+    });
   }
 
   onDeleteCar(id: string) {

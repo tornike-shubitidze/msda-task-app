@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { v4 as uuidv4 } from 'uuid';
-import { PropsData } from '../../Interfaces';
+import { Car, PropsData } from '../../Interfaces';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-dialog',
@@ -10,10 +10,10 @@ import { PropsData } from '../../Interfaces';
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent {
-  name: string | undefined;
-  model: string | undefined;
-  year: string | undefined;
-  description: string | undefined;
+  name: string = '';
+  model: string = '';
+  year: string = '';
+  description: string = '';
 
   formName = new FormControl('', [
     Validators.required,
@@ -34,38 +34,29 @@ export class DialogComponent {
 
   constructor(
     public dialog: MatDialog,
+    private carsService: CarService,
     @Inject(MAT_DIALOG_DATA) public data: PropsData
   ) {}
 
-  id = uuidv4();
-  // isEdit: boolean = this.data.btnText === 'SAVE CAR';
   isEdit: boolean = this.data.car !== undefined;
 
-  selectedCar = {
-    // id: this.data.car?.id || '',
-    id: this.isEdit ? this.data.car.id : this.id,
-    name: this.isEdit ? this.data.car.name : '',
-    model: this.isEdit ? this.data.car.model : '',
-    year: this.isEdit ? this.data.car.year : '',
-    description: this.isEdit ? this.data.car.description : '',
+  selectedCar: Car = {
+    id: this.data.car?._id || '',
+    name: this.data.car?.name || this.name,
+    model: this.data.car?.model || this.model,
+    year: this.data.car?.year || this.year,
+    description: this.data.car?.description || this.description,
   };
 
-  addCar() {
-    var newCar = {
-      id: this.id,
-      name: this.name,
-      model: this.model,
-      year: this.year,
-      description: this.description,
-    };
-    console.log('newCar: ', newCar);
-    this.dialog.closeAll();
-  }
+  onSaveCar(car: Car) {
+    if (!this.formName.valid && !this.formYear.valid && !this.formModel.valid)
+      return;
 
-  onSaveCar() {
-    if (this.formName.valid && this.formYear.valid && this.formModel.valid) {
-      return alert('form is valid');
-    } else return alert('form is not valid');
+    !this.isEdit
+      ? this.carsService.addCar(car).subscribe()
+      : this.dialog.closeAll();
+
+    this.dialog.closeAll();
   }
 
   onCencelClick() {

@@ -1,32 +1,32 @@
 <form class="form">
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Name</mat-label>
+        <mat-label>NAME</mat-label>
         <input matInput name="name" [formControl]="formName" [(ngModel)]="selectedCar.name">
         <mat-error *ngIf="formName.invalid">
             Name is required! Please enter <strong>letters</strong> only 🙂
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Model</mat-label>
+        <mat-label>MODEL</mat-label>
         <input matInput name="model" [formControl]="formModel" [(ngModel)]="selectedCar.model">
         <mat-error *ngIf="formModel.invalid">
             Model is required! Please enter <strong>Numbers or Letters</strong> only 🙂
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Year</mat-label>
+        <mat-label>YEAR</mat-label>
         <input matInput name="year" [formControl]="formYear" [(ngModel)]="selectedCar.year">
         <mat-error *ngIf="formYear.invalid">
             Year is required! Please enter four digit <strong>Numbers</strong> only 🙂
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
-        <mat-label>Description</mat-label>
+        <mat-label>DESCRIPTION</mat-label>
         <textarea matInput name="description" [(ngModel)]="selectedCar.description"></textarea>
     </mat-form-field>
 
     <div class="dialog-actions">
         <app-button color="basic" text="CENCEL" (click)="onCencelClick()"></app-button>
-        <app-button color="primary" text={{this.data.btnText}} (click)="onSaveCar()"></app-button>
+        <app-button color="primary" text={{this.data.btnText}} (click)="onSaveCar(selectedCar)"></app-button>
     </div>
 </form>
