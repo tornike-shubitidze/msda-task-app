@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -24,7 +24,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule,
+    HttpClientModule,
     MatTableModule,
     MatButtonModule,
     MatDialogModule,

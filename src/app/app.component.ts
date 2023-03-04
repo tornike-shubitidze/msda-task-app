@@ -3,79 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { Car } from '../app/Interfaces';
-
-const CARS_DATA: Car[] = [
-  {
-    id: '1',
-    name: 'Hydrogen',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '2',
-    name: 'Helium',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '3',
-    name: 'Lithium',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '4',
-    name: 'Beryllium',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '5',
-    name: 'Boron',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '6',
-    name: 'Carbon',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '7',
-    name: 'Nitrogen',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '8',
-    name: 'Oxygen',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '9',
-    name: 'Fluorine',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-  {
-    id: '10',
-    name: 'Neon',
-    year: '1988',
-    description: 'car is in a good condition...',
-    model: 'M5',
-  },
-];
+import { CarService } from './services/car.service';
 
 @Component({
   selector: 'app-root',
@@ -83,6 +11,10 @@ const CARS_DATA: Car[] = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  CARS_DATA: Car[] = [];
+
+  dataSource: Car[] = [];
+
   displayedColumns: string[] = [
     'Name',
     'Model',
@@ -91,30 +23,27 @@ export class AppComponent {
     'Edit or Delete',
   ];
 
-  tableData: Car[] = CARS_DATA;
+  constructor(private carsService: CarService, public dialog: MatDialog) {}
 
-  dataSource = this.tableData;
+  ngOnInit(): void {
+    this.carsService.getCars().subscribe((cars) => {
+      this.CARS_DATA = cars;
+      this.dataSource = this.CARS_DATA;
+    });
+  }
 
-  constructor(public dialog: MatDialog) {}
-
-  applyFilter(event: any, columnName: string) {
-    console.log(columnName);
-
-    this.dataSource = this.tableData.filter((car) =>
-      car[columnName as keyof Car].includes(
-        event.target.value.trim().toLowerCase()
-      )
+  applyFilter(event: KeyboardEvent, columnName: string) {
+    this.dataSource = this.CARS_DATA.filter((car: Car) =>
+      car[columnName as keyof Car]
+        .toLowerCase()
+        .includes((event.target as HTMLInputElement).value.trim().toLowerCase())
     );
-
-    console.log(event.target.value);
-    console.log(this.dataSource);
   }
 
   openDialog(textValue: string, value?: Car) {
     this.dialog.open(
       textValue !== 'DELETE' ? DialogComponent : (DeleteDialogComponent as any),
       {
-        // width: '300px',
         data: { car: value, btnText: textValue },
       }
     );

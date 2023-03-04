@@ -4,6 +4,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -51,4 +52,8 @@ body {
 .delete-dialog>.dialog-actions{
   padding: 0px 24px 20px 24px;
  
+}
+
+.description{
+  max-width: 500px;
 }
