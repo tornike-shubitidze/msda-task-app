@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car, PropsData } from '../../Interfaces';
 import { CarService } from 'src/app/services/car.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -12,6 +13,7 @@ export class DeleteDialogComponent {
   constructor(
     public dialog: MatDialog,
     private carsService: CarService,
+    private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: PropsData
   ) {}
 
@@ -20,9 +22,16 @@ export class DeleteDialogComponent {
   }
 
   onClickDelete(car: Car) {
-    console.log(car);
     this.carsService.deleteCar(car).subscribe({
       next: () => {
+        this.toastr.success(
+          `You have successfully deleted car 🙂`,
+          `Car Deleted 👍`,
+          {
+            timeOut: 2000,
+          }
+        );
+
         this.dialog.closeAll();
       },
     });

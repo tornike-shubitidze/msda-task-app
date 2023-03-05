@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car, PropsData } from '../../Interfaces';
 import { CarService } from 'src/app/services/car.service';
 import { Observer } from 'rxjs/internal/types';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog',
@@ -36,6 +37,7 @@ export class DialogComponent {
   constructor(
     public dialog: MatDialog,
     private carsService: CarService,
+    private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data: PropsData
   ) {}
 
@@ -55,6 +57,13 @@ export class DialogComponent {
       this.errorMessage = error.message;
     },
     next: () => {
+      this.toastr.success(
+        `You have successfully ${this.isEdit ? 'updated' : 'added'} car 😊`,
+        `Car ${this.isEdit ? 'Updated' : 'Added'} 👍`,
+        {
+          timeOut: 5000,
+        }
+      );
       this.dialog.closeAll();
     },
   };

@@ -5,6 +5,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { Car } from '../app/Interfaces';
 import { CarService } from './services/car.service';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,7 +25,11 @@ export class AppComponent {
     'EDIT/DELETE',
   ];
 
-  constructor(private carsService: CarService, public dialog: MatDialog) {}
+  constructor(
+    private carsService: CarService,
+    public dialog: MatDialog,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.carsService.getCars().subscribe({
@@ -32,7 +38,7 @@ export class AppComponent {
         this.dataSource = this.CARS_DATA;
       },
       error: () => {
-        alert('Failed to fetch Cars data');
+        this.toastr.error('Failed to Fetch Cars Data 😬', 'Error! ❌');
       },
     });
   }
@@ -56,6 +62,7 @@ export class AppComponent {
   openDialog(event: Event, value?: Car) {
     var btnTextValue = (event.target as HTMLInputElement).innerText;
     if (btnTextValue == '') return;
+    console.log(value);
 
     this.dialog.open(
       btnTextValue !== 'DELETE'

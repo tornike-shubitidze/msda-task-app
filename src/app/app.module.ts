@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
