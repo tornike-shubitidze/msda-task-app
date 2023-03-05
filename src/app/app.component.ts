@@ -38,7 +38,7 @@ export class AppComponent {
         this.dataSource = this.CARS_DATA;
       },
       error: () => {
-        this.toastr.error('Failed to Fetch Cars Data 😬', 'Error! ❌');
+        this.toastr.error('Failed to Fetch Data 😬', 'Error! ❌');
       },
     });
   }

@@ -55,13 +55,20 @@ export class DialogComponent {
   apiHandler: Partial<Observer<Car[]>> = {
     error: (error: any) => {
       this.errorMessage = error.message;
+      this.toastr.error(
+        `Oops :( Failed to ${this.isEdit ? 'update' : 'add'} car 😕`,
+        `${this.isEdit ? 'Update' : 'Add'} Faild! ❌`,
+        {
+          timeOut: 2000,
+        }
+      );
     },
     next: () => {
       this.toastr.success(
         `You have successfully ${this.isEdit ? 'updated' : 'added'} car 😊`,
         `Car ${this.isEdit ? 'Updated' : 'Added'} 👍`,
         {
-          timeOut: 5000,
+          timeOut: 2000,
         }
       );
       this.dialog.closeAll();
