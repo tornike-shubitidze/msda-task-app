@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car, PropsData } from '../../Interfaces';
 import { CarService } from 'src/app/services/car.service';
+import { Observer } from 'rxjs/internal/types';
 
 @Component({
   selector: 'app-dialog',
@@ -39,6 +40,7 @@ export class DialogComponent {
   ) {}
 
   isEdit: boolean = this.data.car !== undefined;
+  errorMessage: string = '';
 
   selectedCar: Car = {
     id: this.data.car?._id || '',
@@ -48,15 +50,22 @@ export class DialogComponent {
     description: this.data.car?.description || this.description,
   };
 
+  apiHandler: Partial<Observer<Car[]>> = {
+    error: (error: any) => {
+      this.errorMessage = error.message;
+    },
+    next: () => {
+      this.dialog.closeAll();
+    },
+  };
+
   onSaveCar(car: Car) {
-    if (!this.formName.valid && !this.formYear.valid && !this.formModel.valid)
+    if (!this.formName.valid || !this.formYear.valid || !this.formModel.valid)
       return;
 
-    !this.isEdit
-      ? this.carsService.addCar(car).subscribe()
-      : this.dialog.closeAll();
-
-    this.dialog.closeAll();
+    this.isEdit
+      ? this.carsService.editCar(car).subscribe(this.apiHandler)
+      : this.carsService.addCar(car).subscribe(this.apiHandler);
   }
 
   onCencelClick() {

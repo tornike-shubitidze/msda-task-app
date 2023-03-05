@@ -1,4 +1,5 @@
 <form class="form">
+
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>NAME</mat-label>
         <input matInput name="name" [formControl]="formName" [(ngModel)]="selectedCar.name">
@@ -24,6 +25,9 @@
         <mat-label>DESCRIPTION</mat-label>
         <textarea matInput name="description" [(ngModel)]="selectedCar.description"></textarea>
     </mat-form-field>
+    <mat-error *ngIf="errorMessage">
+        Sorry, Can't Add/Update item right now😕 Please Try Later
+    </mat-error><br>
 
     <div class="dialog-actions">
         <app-button color="basic" text="CENCEL" (click)="onCencelClick()"></app-button>

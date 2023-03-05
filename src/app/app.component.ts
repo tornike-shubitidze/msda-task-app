@@ -26,9 +26,14 @@ export class AppComponent {
   constructor(private carsService: CarService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.carsService.getCars().subscribe((cars) => {
-      this.CARS_DATA = cars;
-      this.dataSource = this.CARS_DATA;
+    this.carsService.getCars().subscribe({
+      next: (cars) => {
+        this.CARS_DATA = cars;
+        this.dataSource = this.CARS_DATA;
+      },
+      error: () => {
+        alert('Failed to fetch Cars data');
+      },
     });
   }
 
@@ -70,14 +75,5 @@ export class AppComponent {
         this.dataSource = this.CARS_DATA;
       });
     });
-  }
-
-  onDeleteCar(id: string) {
-    var deleteCar = confirm(`do you realy want to delete car by id:${id}?`);
-    console.log(
-      deleteCar
-        ? `Your selected vehicle by id:${id} has been deleted successfully ✅`
-        : 'You canceled ❌'
-    );
   }
 }

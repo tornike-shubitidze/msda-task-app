@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Car, PropsData } from '../../Interfaces';
+import { CarService } from 'src/app/services/car.service';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -10,16 +11,20 @@ import { Car, PropsData } from '../../Interfaces';
 export class DeleteDialogComponent {
   constructor(
     public dialog: MatDialog,
+    private carsService: CarService,
     @Inject(MAT_DIALOG_DATA) public data: PropsData
   ) {}
 
-  onNoClick() {
+  onClickNo() {
     this.dialog.closeAll();
   }
 
-  onDeleteClick(car: Car) {
+  onClickDelete(car: Car) {
     console.log(car);
-
-    this.dialog.closeAll();
+    this.carsService.deleteCar(car).subscribe({
+      next: () => {
+        this.dialog.closeAll();
+      },
+    });
   }
 }
