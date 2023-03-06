@@ -58,6 +58,10 @@ body {
   max-width: 500px;
 }
 
+.dialog-error{ 
+  padding-left: 23px;
+}
+
 
 /* Toaster */
 

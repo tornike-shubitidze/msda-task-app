@@ -3,6 +3,9 @@
     <h3 mat-dialog-content>
         Do you really want to delete this car?
     </h3>
+    <mat-error *ngIf="errorMessage.title" class="dialog-error">
+        {{errorMessage.text}}
+    </mat-error><br>
     <div class="dialog-actions">
         <app-button color="basic" text="No" (click)="onClickNo()"></app-button>
         <app-button color="warn" text="Yes" (click)="onClickDelete(this.data.car)"></app-button>

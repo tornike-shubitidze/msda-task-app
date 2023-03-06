@@ -11,3 +11,8 @@ export interface PropsData {
   btnText: string;
   car: Car;
 }
+
+export interface ErrorMessage {
+  title: string;
+  text: string;
+}

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Car, PropsData } from '../../Interfaces';
+import { Car, PropsData, ErrorMessage } from '../../Interfaces';
 import { CarService } from 'src/app/services/car.service';
 import { Observer } from 'rxjs/internal/types';
 import { ToastrService } from 'ngx-toastr';
@@ -42,7 +42,10 @@ export class DialogComponent {
   ) {}
 
   isEdit: boolean = this.data.car !== undefined;
-  errorMessage: string = '';
+  errorMessage: ErrorMessage = {
+    title: '',
+    text: '',
+  };
 
   selectedCar: Car = {
     id: this.data.car?._id || '',
@@ -54,7 +57,10 @@ export class DialogComponent {
 
   apiHandler: Partial<Observer<Car[]>> = {
     error: (error: any) => {
-      this.errorMessage = error.message;
+      this.errorMessage.title = error.message;
+      this.errorMessage.text = `Can't ${
+        this.isEdit ? 'update' : 'add'
+      } this car right now 😕`;
       this.toastr.error(
         `Oops :( Failed to ${this.isEdit ? 'update' : 'add'} car 😕`,
         `${this.isEdit ? 'Update' : 'Add'} Faild! ❌`,
@@ -79,9 +85,25 @@ export class DialogComponent {
     if (!this.formName.valid || !this.formYear.valid || !this.formModel.valid)
       return;
 
-    this.isEdit
-      ? this.carsService.editCar(car).subscribe(this.apiHandler)
-      : this.carsService.addCar(car).subscribe(this.apiHandler);
+    if (this.isEdit) {
+      // check if this car still exists in database
+      this.carsService.getCar(car).subscribe({
+        next: () => {
+          this.carsService.editCar(car).subscribe(this.apiHandler);
+        },
+        error: (error: any) => {
+          this.errorMessage.title = error.message;
+          this.errorMessage.text = `This car no longer exists in the database 😕`;
+          this.toastr.error(
+            `This car no longer exists in the database😕`,
+            `Update Faild! ❌`,
+            {
+              timeOut: 2000,
+            }
+          );
+        },
+      });
+    } else this.carsService.addCar(car).subscribe(this.apiHandler);
   }
 
   onCencelClick() {
