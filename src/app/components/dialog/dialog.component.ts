@@ -48,7 +48,7 @@ export class DialogComponent {
   };
 
   selectedCar: Car = {
-    id: this.data.car?._id || '',
+    carId: this.data.car?.carId || '',
     name: this.data.car?.name || this.name,
     model: this.data.car?.model || this.model,
     year: this.data.car?.year || this.year,

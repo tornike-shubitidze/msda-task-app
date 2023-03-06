@@ -22,7 +22,7 @@ export class CarService {
   }
 
   getCar(car: Car): Observable<Car[]> {
-    return this.http.get<Car[]>(`${this.apiUrl}/${car._id || car.id}`);
+    return this.http.get<Car[]>(`${this.apiUrl}/${car.carId}`);
   }
 
   addCar(car: Car): Observable<Car[]> {
@@ -30,10 +30,14 @@ export class CarService {
   }
 
   editCar(car: Car): Observable<Car[]> {
-    return this.http.put<Car[]>(`${this.apiUrl}/${car.id}`, car, httpOptions);
+    return this.http.put<Car[]>(
+      `${this.apiUrl}/${car.carId}`,
+      car,
+      httpOptions
+    );
   }
 
   deleteCar(car: Car): Observable<Car[]> {
-    return this.http.delete<Car[]>(`${this.apiUrl}/${car._id}`, httpOptions);
+    return this.http.delete<Car[]>(`${this.apiUrl}/${car.carId}`, httpOptions);
   }
 }
