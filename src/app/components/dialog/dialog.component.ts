@@ -20,11 +20,13 @@ export class DialogComponent {
   formName = new FormControl('', [
     Validators.required,
     Validators.pattern('^[A-Za-z]+$'),
+    Validators.maxLength(15),
   ]);
 
   formModel = new FormControl('', [
     Validators.required,
     Validators.pattern('^[a-zA-Z0-9_.-]*$'),
+    Validators.maxLength(15),
   ]);
 
   formYear = new FormControl('', [

@@ -1,24 +1,36 @@
 <form class="form">
-
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>NAME</mat-label>
         <input matInput name="name" [formControl]="formName" [(ngModel)]="selectedCar.name">
         <mat-error *ngIf="formName.invalid">
-            Name is required! Please enter <strong>letters</strong> only 🙂
+            <span *ngIf="formName.errors?.['maxlength']">
+                Car Name must be <strong>Maximum 15 Characters</strong> long 🙂
+            </span>
+            <span *ngIf="formName.errors?.['pattern']">Please enter <strong>Latin Letters</strong>
+                only 🙂</span>
+            <span *ngIf="formName.errors?.['required']">Car Name is <strong>required</strong> 🙂</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>MODEL</mat-label>
         <input matInput name="model" [formControl]="formModel" [(ngModel)]="selectedCar.model">
         <mat-error *ngIf="formModel.invalid">
-            Model is required! Please enter <strong>Numbers or Letters</strong> only 🙂
+            <span *ngIf="formModel.errors?.['maxlength']">
+                Car Name must be <strong>Maximum 15 Characters</strong> long 🙂
+            </span>
+            <span *ngIf="formModel.errors?.['pattern']">Please enter <strong>Numbers or Latin Letters</strong>
+                only 🙂</span>
+            <span *ngIf="formModel.errors?.['required']">Car Model is <strong>required</strong> 🙂</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
         <mat-label>YEAR</mat-label>
         <input matInput name="year" [formControl]="formYear" [(ngModel)]="selectedCar.year">
         <mat-error *ngIf="formYear.invalid">
-            Year is required! Please enter four digit <strong>Numbers</strong> only 🙂
+            <span
+                *ngIf="formYear.errors?.['minlength'] || formYear.errors?.['maxlength']|| formYear.errors?.['pattern']">
+                Please enter <strong>Four</strong> digited <strong>Numbers</strong> only 🙂</span>
+            <span *ngIf="formYear.errors?.['required']">Car release Year is <strong>required</strong> 🙂</span>
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field">
