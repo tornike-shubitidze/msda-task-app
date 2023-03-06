@@ -18,11 +18,11 @@ export class AppComponent {
   dataSource: Car[] = [];
 
   displayedColumns: string[] = [
-    'NAME',
-    'MODEL',
-    'YEAR',
-    'DESCRIPTION',
-    'EDIT/DELETE',
+    'name',
+    'model',
+    'year',
+    'description',
+    'buttons',
   ];
 
   constructor(

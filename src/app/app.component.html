@@ -2,40 +2,17 @@
   <app-button class='add-car-btn' color="accent" text="ADD CAR" (click)="openDialog($event)"></app-button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="NAME">
-      <th mat-header-cell *matHeaderCellDef> NAME
-        <input matInput placeholder="Search by Name" name="name" class="search" (keyup)="applyFilter($event)">
-      </th>
-      <td mat-cell *matCellDef="let car"> {{car.name.toUpperCase()}} </td>
-    </ng-container>
 
-    <ng-container matColumnDef="MODEL">
-      <th mat-header-cell *matHeaderCellDef> MODEL
-        <input matInput placeholder="Search by Model" name="model" class="search" (keyup)="applyFilter($event)">
-      </th>
-      <td mat-cell *matCellDef="let car"> {{car.model.toUpperCase()}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="YEAR">
-      <th mat-header-cell *matHeaderCellDef> YEAR
-        <input matInput placeholder="Search by Year" name="year" class="search" (keyup)="applyFilter($event)">
-      </th>
-      <td mat-cell *matCellDef="let car"> {{car.year}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="DESCRIPTION">
-      <th mat-header-cell *matHeaderCellDef> DESCRIPTION
-        <input matInput placeholder="Search by Description" name="description" class="search"
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <th mat-header-cell *matHeaderCellDef> {{column=="buttons" ? '':column.toUpperCase()}}
+        <input matInput *ngIf="!column.includes('buttons')" placeholder="Search" name={{column}} class="search"
           (keyup)="applyFilter($event)">
       </th>
-      <td mat-cell *matCellDef="let car" class="description"> {{car.description?.toUpperCase()}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="EDIT/DELETE">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let car">
-        <app-button color="primary" text="EDIT" (click)="openDialog($event,car)"></app-button> &nbsp;&nbsp;&nbsp;
-        <app-button color="warn" text="DELETE" (click)="openDialog($event,car)"></app-button>
+      <td mat-cell *matCellDef="let car"> {{car[column]}}
+        <div *ngIf="column.includes('buttons')">
+          <app-button color="primary" text="EDIT" (click)="openDialog($event,car)"></app-button> &nbsp;&nbsp;&nbsp;
+          <app-button color="warn" text="DELETE" (click)="openDialog($event,car)"></app-button>
+        </div>
       </td>
     </ng-container>
 
