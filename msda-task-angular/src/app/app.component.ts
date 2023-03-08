@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -6,6 +6,8 @@ import { Car } from '../app/Interfaces';
 import { CarService } from './services/car.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   CARS_DATA: Car[] = [];
 
-  dataSource: Car[] = [];
+  dataSource: any = [];
 
   displayedColumns: string[] = [
     'name',
@@ -24,6 +26,11 @@ export class AppComponent {
     'description',
     'buttons',
   ];
+
+  currentfilterColumn: string = '';
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
   constructor(
     private carsService: CarService,
@@ -35,7 +42,9 @@ export class AppComponent {
     this.carsService.getCars().subscribe({
       next: (cars) => {
         this.CARS_DATA = cars;
-        this.dataSource = this.CARS_DATA;
+        this.dataSource = new MatTableDataSource<Car>(this.CARS_DATA);
+        this.dataSource.paginator = this.paginator;
+        this.filterTable();
       },
       error: () => {
         this.toastr.error('Failed to Fetch Data 😬', 'Error! ❌');
@@ -43,26 +52,36 @@ export class AppComponent {
     });
   }
 
-  applyFilter(event: KeyboardEvent) {
-    var filterColumnName = (event.target as HTMLInputElement).getAttribute(
-      'name'
-    );
+  getFilterColumnName(event: Event) {
+    var filterColumnName: string = (
+      event.target as HTMLInputElement
+    ).getAttribute('name')!;
+    this.currentfilterColumn = filterColumnName.toString();
+  }
 
+  applyFilter(event: KeyboardEvent) {
     var filterInputValue = (event.target as HTMLInputElement).value
       .trim()
       .toLowerCase();
 
-    this.dataSource = this.CARS_DATA.filter((car: any) =>
-      car[filterColumnName as keyof Car]
-        .toLowerCase()
-        .includes(filterInputValue)
-    );
+    this.dataSource.filter = filterInputValue;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  filterTable() {
+    this.dataSource.filterPredicate = (data: Car, filter: string): boolean => {
+      return data[
+        this.currentfilterColumn as keyof Car
+      ]!.toLocaleLowerCase().includes(filter);
+    };
   }
 
   openDialog(event: Event, value?: Car) {
     var btnTextValue = (event.target as HTMLInputElement).innerText;
     if (btnTextValue == '') return;
-    console.log(value);
 
     this.dialog.open(
       btnTextValue !== 'DELETE'
@@ -79,7 +98,8 @@ export class AppComponent {
     this.dialog.afterAllClosed.subscribe(() => {
       this.carsService.getCars().subscribe((cars) => {
         this.CARS_DATA = cars;
-        this.dataSource = this.CARS_DATA;
+        this.dataSource = new MatTableDataSource<Car>(this.CARS_DATA);
+        this.dataSource.paginator = this.paginator;
       });
     });
   }

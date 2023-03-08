@@ -14,6 +14,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { ButtonComponent } from './components/button/button.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
